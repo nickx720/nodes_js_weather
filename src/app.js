@@ -1,12 +1,10 @@
 const express = require('express');
-const serverless = require('serverless-http');
 const hbs = require('hbs');
 const path = require('path');
 const geocode = require('./utils/geocode');
 const forecast = require('./utils/forecast');
-const bodyParser = require('body-parser');
 const app = express();
-const router = express.Router();
+const port = process.env.PORT || 8080;
 
 // Define paths for express config
 const publicDirectoryPath = path.join(__dirname, '../public');
@@ -91,12 +89,6 @@ app.get('*', (req, res) => {
     });
 })
 
-app.use(bodyParser.json());
-app.use('/.netlify/functions/server', router);  // path must route to lambda
-
-module.exports = app;
-
-/* app.listen(port, () => {
+app.listen(8080, () => {
     console.log('Server is up on port 8080.');
-}) */
-module.exports.handler = serverless(app);
+})
