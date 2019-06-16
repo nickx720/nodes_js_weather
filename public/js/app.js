@@ -1,6 +1,6 @@
 console.log('I am from the client side');
 
-const fetchData = (str) => fetch('http://localhost:8080/weather?address=' + str).then((response) => {
+const fetchData = (str) => fetch('/weather?address=' + str).then((response) => {
     response.json().then((data) => {
         if (data.error) {
             messageOne.textContent = data.error;
