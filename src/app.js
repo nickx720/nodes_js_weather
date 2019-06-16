@@ -1,10 +1,10 @@
 const express = require('express');
+const serverless = require('serverless-http');
 const hbs = require('hbs');
 const path = require('path');
 const geocode = require('./utils/geocode');
 const forecast = require('./utils/forecast');
 const app = express();
-const port = process.env || 8080;
 
 // Define paths for express config
 const publicDirectoryPath = path.join(__dirname, '../public');
@@ -89,6 +89,7 @@ app.get('*', (req, res) => {
     });
 })
 
-app.listen(port, () => {
+/* app.listen(port, () => {
     console.log('Server is up on port 8080.');
-})
+}) */
+module.exports.handler = serverless(app);
