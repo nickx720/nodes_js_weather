@@ -4,7 +4,9 @@ const hbs = require('hbs');
 const path = require('path');
 const geocode = require('./utils/geocode');
 const forecast = require('./utils/forecast');
+const bodyParser = require('body-parser');
 const app = express();
+const router = express.Router();
 
 // Define paths for express config
 const publicDirectoryPath = path.join(__dirname, '../public');
@@ -88,6 +90,11 @@ app.get('*', (req, res) => {
         name: 'Nick'
     });
 })
+
+app.use(bodyParser.json());
+app.use('/.netlify/functions/server', router);  // path must route to lambda
+
+module.exports = app;
 
 /* app.listen(port, () => {
     console.log('Server is up on port 8080.');
